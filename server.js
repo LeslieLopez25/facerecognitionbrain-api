@@ -23,15 +23,15 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.send("It's working");
+  res.send(JSON.stringify({ message: "it's working" }));
 });
 
 app.post("/signin", (req, res) => {
-  signin.handleSignin(req, res, db, bcrypt);
+  signin.handleSignin(req, res, bcrypt, db);
 });
 
 app.post("/register", (req, res) => {
-  register.handleRegister(req, res, db, bcrypt);
+  register.handleRegister(req, res, bcrypt, db);
 });
 
 app.get("/profile/:id", (req, res) => {
@@ -44,10 +44,6 @@ app.put("/image", (req, res) => {
 
 app.post("/imageurl", (req, res) => {
   image.handleApiCall(req, res);
-});
-
-app.delete("/signout", (req, res) => {
-  signout.handleSignout(req, res, db);
 });
 
 app.listen(process.env.PORT, () => {
