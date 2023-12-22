@@ -20,15 +20,13 @@ const db = knex({
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send(JSON.stringify({ message: "it's working" }));
+  res.send(db.users);
 });
 
-app.post("/signin", (req, res) => {
-  signin.handleSignin(req, res, bcrypt, db);
-});
+app.post("/signin", signin.handleSignin(db, bcrypt));
 
 app.post("/register", (req, res) => {
   register.handleRegister(req, res, bcrypt, db);
